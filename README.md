@@ -273,17 +273,23 @@ Trigger Rollback (reverse order) → Notify user → Report to feedback-system
 
 ### Usage
 
-1. Clone this repository:
-   ```bash
-   git clone <repository-url>
-   cd <project-directory>
-   ```
+**Option 1: Quick Install (Recommended)**
+Open your project terminal and run:
+```bash
+npx ag-skill init
+```
+This will automatically copy the agent system into your project root.
 
-2. Place the `.agents/` directory in your project root.
+**Option 2: Clone for Contribution**
+If you wish to contribute to the framework:
+```bash
+git clone https://github.com/PabloRaka/skills-workflow-for-code.git
+cd skills-workflow-for-code
+```
 
-3. Your AI assistant will automatically pick up the agent system configuration.
-
-4. Invoke the workflow by referencing `/workflow` in your AI assistant.
+1. Place the `.agents/` directory in your project root.
+2. Your AI assistant will automatically pick up the agent system configuration.
+3. Invoke the workflow by referencing `/workflow` in your AI assistant.
 
 ### Adding a New Agent
 

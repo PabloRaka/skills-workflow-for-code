@@ -1,0 +1,32 @@
+{
+  "name": "ag-skill",
+  "version": "2.1.0",
+  "description": "Enterprise-grade multi-agent coding system framework for AI assistants.",
+  "main": "index.js",
+  "bin": {
+    "ag-skill": "bin/cli.js"
+  },
+  "files": [
+    ".agents",
+    "workflows",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "multi-agent",
+    "coding",
+    "assistant",
+    "framework"
+  ],
+  "author": "Pabloraka",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

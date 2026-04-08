@@ -1,6 +1,24 @@
 ---
 name: security-agent
 description: Identify vulnerabilities and improve system security
+capabilities:
+  - security
+  - vulnerability
+  - owasp
+  - authentication
+  - encryption
+  - cve
+  - penetration_testing
+input_types:
+  - code
+  - architecture_plan
+  - api_structure
+output_types:
+  - analysis
+  - vulnerability_report
+  - recommendations
+risk_level: high
+priority: 1
 ---
 
 # Instructions

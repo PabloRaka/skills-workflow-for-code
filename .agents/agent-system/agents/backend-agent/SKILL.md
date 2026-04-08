@@ -1,6 +1,26 @@
 ---
 name: backend-agent
 description: Design and implement scalable backend systems and APIs
+capabilities:
+  - api
+  - backend
+  - server
+  - rest
+  - graphql
+  - authentication
+  - authorization
+  - middleware
+input_types:
+  - requirements
+  - database_schema
+  - architecture_plan
+output_types:
+  - code
+  - api_structure
+  - endpoints
+  - middleware_config
+risk_level: medium
+priority: 3
 ---
 
 # Instructions

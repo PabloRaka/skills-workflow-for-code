@@ -1,6 +1,23 @@
 ---
 name: software-engineer-agent
 description: Provide end-to-end software engineering solutions
+capabilities:
+  - architecture
+  - system_design
+  - modules
+  - planning
+  - solid
+  - testing_strategy
+input_types:
+  - requirements
+  - constraints
+output_types:
+  - design
+  - architecture_plan
+  - module_specs
+  - development_plan
+risk_level: medium
+priority: 2
 ---
 
 # Instructions

@@ -1,6 +1,24 @@
 ---
 name: database-agent
 description: Design, optimize, and manage database systems
+capabilities:
+  - database
+  - schema
+  - sql
+  - nosql
+  - migration
+  - indexing
+  - optimization
+input_types:
+  - requirements
+  - data_model
+output_types:
+  - design
+  - schema
+  - migrations
+  - queries
+risk_level: high
+priority: 4
 ---
 
 # Instructions

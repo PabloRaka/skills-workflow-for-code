@@ -6,7 +6,8 @@ description: Analyze user request and determine which agents should be activated
 # Instructions
 
 1. Analyze user intent
-2. Classify request into categories:
+2. **Query agent-registry** — Get available agents and their capabilities
+3. Classify request into categories:
    - frontend
    - backend
    - database
@@ -16,28 +17,58 @@ description: Analyze user request and determine which agents should be activated
    - system design
    - code review
 
-3. Determine:
+4. Determine:
    - Single agent OR multi-agent
    - Execution order (if multiple)
    - Parallel vs sequential execution
+   - **Risk level per agent** (from agent-registry metadata + action analysis)
 
-4. Check memory systems before deciding:
+5. Check memory systems before deciding:
    - Query episodic-memory for similar past cases
    - Query semantic-memory for applicable rules
    - Use insights to optimize agent selection
 
-5. Output structured plan
+6. Output structured plan
 
-# Decision Rules
+# Agent Selection via Registry
 
-- UI/UX → frontend-agent
-- API / server → backend-agent
-- Data structure → database-agent
-- ML / AI → ai-engineer-agent
-- Vulnerability → security-agent
-- Error / crash → bug-analyzer-agent
-- Architecture → software-engineer-agent
-- Code quality → code-reviewer-agent
+Instead of hardcoded rules, decision-system queries the agent-registry:
+
+1. Extract keywords from user request
+2. Match keywords against agent `capabilities` in registry
+3. Rank matching agents by `priority` (lower = higher priority)
+4. Verify selected agents have compatible `input_types` / `output_types` for chaining
+5. Fallback: if no capability match, route to `software-engineer-agent` as coordinator
+
+## Dynamic Matching Example
+
+```
+User: "Build a secure API with database"
+Keywords: [api, secure, database]
+
+Registry query:
+  "api" → backend-agent (priority 3)
+  "secure" → security-agent (priority 1)  
+  "database" → database-agent (priority 4)
+
+Result: [database-agent, backend-agent, security-agent]
+```
+
+# Risk Level Assessment
+
+For each selected agent, determine risk level:
+
+1. Start with agent's `risk_level` from registry (default)
+2. **Elevate** risk if:
+   - Action involves DELETE, DROP, or REMOVE operations → +1 level
+   - Action modifies auth/security systems → +1 level
+   - Action targets production environment → set to `critical`
+   - Action involves schema migration on existing data → +1 level
+3. **Lower** risk if:
+   - Action is read-only or analysis → set to `low`
+   - Action only generates new code (no modification) → keep or lower 1 level
+
+Risk levels: `low` → `medium` → `high` → `critical`
 
 # Multi-Category Handling
 
@@ -61,14 +92,14 @@ When memory sources disagree:
    - **Flag conflict** in output for orchestrator awareness
 
 2. Multiple agents claim ownership of a task:
-   - Refer to Agent Priority in shared/SKILL.md
+   - Refer to `priority` field in agent-registry
    - If still ambiguous, assign to software-engineer-agent as coordinator
 
 3. Resolution hierarchy:
    - Security constraints (non-negotiable)
    - Episodic evidence (proven results)
    - Semantic rules (established patterns)
-   - Default agent priority
+   - Agent registry priority
 
 # Output Format
 
@@ -78,11 +109,24 @@ When memory sources disagree:
   "execution_order": ["database-agent", "backend-agent"],
   "execution_mode": "sequential",
   "reasoning": "Need schema before API implementation",
+  "risk_assessment": {
+    "database-agent": {
+      "risk_level": "high",
+      "reason": "Creating new schema with migrations",
+      "requires_approval": true
+    },
+    "backend-agent": {
+      "risk_level": "medium",
+      "reason": "Generating new API code, no existing code modified",
+      "requires_approval": false
+    }
+  },
   "memory_insights": {
     "episodic": "Similar case succeeded with this order",
     "semantic": "Rule: always define schema before endpoints"
   },
   "conflicts_detected": [],
+  "registry_source": "auto-discovery",
   "confidence": 0.85
 }
 ```

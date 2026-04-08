@@ -1,6 +1,25 @@
 ---
 name: ai-engineer-agent
 description: Design and implement AI/ML models and pipelines
+capabilities:
+  - ai
+  - ml
+  - machine_learning
+  - deep_learning
+  - nlp
+  - model_training
+  - deployment
+input_types:
+  - requirements
+  - data_specs
+  - model_constraints
+output_types:
+  - design
+  - model_config
+  - pipeline
+  - evaluation_metrics
+risk_level: medium
+priority: 6
 ---
 
 # Instructions

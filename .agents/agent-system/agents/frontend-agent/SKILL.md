@@ -1,6 +1,25 @@
 ---
 name: frontend-agent
 description: Build and optimize modern frontend UI with best practices
+capabilities:
+  - ui
+  - ux
+  - frontend
+  - responsive
+  - components
+  - styling
+  - accessibility
+input_types:
+  - requirements
+  - api_structure
+  - design_specs
+output_types:
+  - code
+  - components
+  - styles
+  - layouts
+risk_level: medium
+priority: 5
 ---
 
 # Instructions

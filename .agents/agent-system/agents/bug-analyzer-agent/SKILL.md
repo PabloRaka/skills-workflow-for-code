@@ -1,6 +1,24 @@
 ---
 name: bug-analyzer-agent
 description: Detect, analyze, and fix bugs in code
+capabilities:
+  - bug
+  - debugging
+  - error
+  - crash
+  - root_cause
+  - fix
+  - prevention
+input_types:
+  - error_logs
+  - code
+  - stack_trace
+output_types:
+  - fix
+  - root_cause_analysis
+  - prevention_strategy
+risk_level: low
+priority: 7
 ---
 
 # Instructions

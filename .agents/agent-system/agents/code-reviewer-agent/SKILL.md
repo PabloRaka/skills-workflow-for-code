@@ -1,6 +1,23 @@
 ---
 name: code-reviewer-agent
 description: Review code for quality, performance, and best practices
+capabilities:
+  - review
+  - code_quality
+  - performance
+  - best_practices
+  - refactoring
+  - standards
+input_types:
+  - code
+  - pull_request
+output_types:
+  - review
+  - issues
+  - suggestions
+  - refactored_code
+risk_level: low
+priority: 8
 ---
 
 # Instructions

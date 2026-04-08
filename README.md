@@ -276,7 +276,7 @@ Trigger Rollback (reverse order) → Notify user → Report to feedback-system
 **Option 1: Quick Install (Recommended)**
 Open your project terminal and run:
 ```bash
-npx ag-skill init
+npx gravity-skill init
 ```
 This will automatically copy the agent system into your project root.
 

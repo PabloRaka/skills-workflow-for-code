@@ -29,7 +29,7 @@ if (command === 'init') {
   console.log('\n\x1b[32m%s\x1b[0m', '🚀 Done! Your project is now equipped with Enterprise-Grade AI Agents.');
   console.log('Reference /workflow in your AI assistant to get started.\n');
 } else {
-  console.log('Usage: npx ag-skill init');
+  console.log('Usage: npx gravity-skill init');
 }
 
 function copyRecursiveSync(src, dest) {

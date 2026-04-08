@@ -1,10 +1,10 @@
 {
-  "name": "ag-skill",
+  "name": "gravity-skill",
   "version": "2.1.0",
   "description": "Enterprise-grade multi-agent coding system framework for AI assistants.",
   "main": "index.js",
   "bin": {
-    "ag-skill": "bin/cli.js"
+    "gravity-skill": "bin/cli.js"
   },
   "files": [
     ".agents",

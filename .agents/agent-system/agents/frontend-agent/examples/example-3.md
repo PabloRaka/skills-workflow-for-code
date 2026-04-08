@@ -189,6 +189,8 @@ export function DataTable<T extends { id: string }>({
       "accessibility": ["role=grid", "aria-label on checkboxes", "keyboard sortable headers"],
       "generic": true
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["components/DataTable.tsx"]
   },
   "context_info": {

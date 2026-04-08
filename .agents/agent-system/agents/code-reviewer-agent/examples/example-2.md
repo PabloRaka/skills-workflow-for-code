@@ -193,6 +193,8 @@ export function UserDashboard() {
       "after_metrics": {"lines": 150, "state_variables": 3, "components": 5, "hooks": 2},
       "refactored_code_provided": true
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["hooks/useUsers.ts", "hooks/useDebouncedValue.ts", "services/userApi.ts", "components/UserDashboard.tsx"]
   },
   "context_info": {

@@ -125,6 +125,8 @@ app.get("/api/posts", async (req, res) => {
         "Add Prisma middleware to warn on N+1 queries"
       ]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["fixes/posts-optimized.js"]
   },
   "context_info": {

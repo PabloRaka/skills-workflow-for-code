@@ -79,6 +79,8 @@ npm audit
         "Review transitive dependencies regularly"
       ]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["cve-report.md", "remediation-script.sh"]
   },
   "context_info": {

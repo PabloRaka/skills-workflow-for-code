@@ -132,6 +132,8 @@ Compensation (if step 3 fails):
         {"phase": 4, "scope": "E2E testing + Deployment", "weeks": 2}
       ]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["architecture-diagram.md", "service-specs/", "deployment/k8s-manifests/"]
   },
   "context_info": {

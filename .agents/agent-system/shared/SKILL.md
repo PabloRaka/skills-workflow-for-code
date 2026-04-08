@@ -23,6 +23,7 @@ Lower number = higher priority:
 6. ai-engineer-agent (priority: 6)
 7. bug-analyzer-agent (priority: 7)
 8. code-reviewer-agent (priority: 8)
+9. documentation-agent (priority: 9)
 
 > New agents added to `agents/` folder are automatically registered.
 > Priority is read from frontmatter — no manual update needed here.
@@ -50,8 +51,10 @@ All agents MUST communicate using this unified envelope format:
     "artifact_refs": []
   },
   "output": {
-    "type": "code | analysis | design | review | fix",
+    "type": "code | analysis | design | review | fix | documentation",
     "data": {},
+    "reasoning_log": [],
+    "impact_assessment": {},
     "artifacts": []
   },
   "dependencies": {
@@ -115,6 +118,8 @@ All agents MUST communicate using this unified envelope format:
 | Rollback Protocol | `shared/rollback-protocol/SKILL.md` | Undo changes on failure |
 | Context Management | `shared/context-management/SKILL.md` | Prevent token overflow |
 | Checkpoint Protocol | `shared/checkpoint-protocol/SKILL.md` | Crash recovery |
+| Reasoning Protocol | `shared/reasoning-protocol/SKILL.md` | Multi-step cognition and self-correction |
+| User Interaction Protocol | `shared/user-interaction-protocol/SKILL.md` | Human-friendly outputs and walkthroughs |
 
 # Version
 

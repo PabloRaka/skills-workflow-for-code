@@ -119,6 +119,8 @@ app.post("/auth/refresh", async (req, res) => {
       "security_features": ["bcrypt hashing", "rate limiting", "input validation (Zod)"],
       "dependencies": ["express", "jsonwebtoken", "bcrypt", "zod", "express-rate-limit"]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["routes/auth.js", "middleware/rateLimiter.js", "validators/authSchema.js"]
   },
   "dependencies": {

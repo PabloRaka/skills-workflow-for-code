@@ -12,6 +12,7 @@ description: Store past execution cases and experiences
    - outcome (success/partial/failed)
    - errors encountered
    - resolution applied
+   - archived checkpoints (raw cognitive maps and system snapshots)
 
 2. Retrieve similar past cases:
    - Match by keywords and category
@@ -36,7 +37,8 @@ description: Store past execution cases and experiences
       "request_summary": "...",
       "agents_used": [],
       "outcome": "success",
-      "relevance_score": 0.85
+      "relevance_score": 0.85,
+      "archived_checkpoint_ref": "chk_exec009_final"
     }
   ],
   "lessons": [

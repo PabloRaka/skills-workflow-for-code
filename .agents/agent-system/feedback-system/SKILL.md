@@ -32,9 +32,10 @@ description: Evaluate results and improve system performance
 
 - Accuracy (0-10): Is the output correct?
 - Efficiency (0-10): Was the execution optimal?
-- Clarity (0-10): Is the output understandable?
+- Clarity (0-10): Is the output understandable (documentation-agent quality)?
+- Cognitive Quality (0-10): Are the reasoning logs and impact assessments logical and helpful?
 - Schema Compliance (0-10): Did agents follow the Standard Data Schema?
-- Overall Score: weighted average (Accuracy 40%, Efficiency 25%, Clarity 20%, Schema 15%)
+- Overall Score: weighted average (Accuracy 30%, Cognitive Quality 20%, Clarity 20%, Efficiency 15%, Schema 15%)
 
 # Learning Triggers
 

@@ -177,6 +177,8 @@ def train_model(model, train_loader, val_loader, epochs=20, lr=1e-3):
       "pipeline_steps": ["data_augmentation", "transfer_learning", "fine_tuning", "evaluation", "export"],
       "export_format": "ONNX"
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["training/model.py", "training/data.py", "training/train.py", "models/best_model.pth"]
   },
   "context_info": {

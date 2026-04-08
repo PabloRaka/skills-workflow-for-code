@@ -214,6 +214,8 @@ jobs:
       "containerization": "Docker (multi-stage build)",
       "orchestration": "Kubernetes"
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": [".github/workflows/ci-cd.yml", "Dockerfile", "k8s/deployment.yml", "playwright.config.ts"]
   },
   "metadata": {

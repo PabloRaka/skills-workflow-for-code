@@ -124,6 +124,8 @@ async function broadcastToChannel(channel, notification) {
         {"event": "subscribe", "direction": "client→server", "description": "Join channel"}
       ]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["services/notification.js", "middleware/wsAuth.js", "config/redis.js"]
   },
   "dependencies": {

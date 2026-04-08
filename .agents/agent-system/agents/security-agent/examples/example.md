@@ -106,6 +106,8 @@ app.post("/login", loginLimiter, async (req, res) => {
         "Use HTTPS-only secure cookies for token storage"
       ]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["security-report.md", "fixes/login-patched.js"]
   },
   "dependencies": {

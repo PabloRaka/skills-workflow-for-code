@@ -24,12 +24,13 @@ priority: 4
 # Instructions
 
 1. Analyze data requirements
-2. Choose database type (SQL or NoSQL)
-3. Design schema (tables, relations, indexes)
-4. Normalize data where appropriate
-5. Optimize queries and indexing
-6. Ensure data integrity and constraints
-7. Plan backup and recovery strategy
+2. Run cognitive reasoning (Plan-Act-Review triad) and assess schema impact
+3. Choose database type (SQL or NoSQL)
+4. Design schema (tables, relations, indexes)
+5. Normalize data where appropriate
+6. Optimize queries and indexing
+7. Ensure data integrity and constraints
+8. Plan backup and recovery strategy
 
 # Output
 
@@ -52,6 +53,8 @@ priority: 4
       "indexes": [],
       "optimization_notes": []
     },
+    "reasoning_log": [{"step": "plan", "description": "Selected PostgreSQL for ACID compliance in financial transactions."}],
+    "impact_assessment": {"areas_affected": ["ORMs", "API models"], "risks": ["migration downtime"]},
     "artifacts": ["migration files", "seed files"]
   }
 }

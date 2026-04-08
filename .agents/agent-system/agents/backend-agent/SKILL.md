@@ -26,13 +26,14 @@ priority: 3
 # Instructions
 
 1. Analyze requirements and define API endpoints
-2. Choose backend framework (Node.js, Django, Flask, etc.)
-3. Design RESTful or GraphQL APIs
-4. Implement authentication and authorization
-5. Handle business logic and validations
-6. Integrate database
-7. Ensure error handling and logging
-8. Optimize performance and scalability
+2. Run cognitive reasoning (Plan-Act-Review triad) and assess system impact
+3. Choose backend framework (Node.js, Django, Flask, etc.)
+4. Design RESTful or GraphQL APIs
+5. Implement authentication and authorization
+6. Handle business logic and validations
+7. Integrate database
+8. Ensure error handling and logging
+9. Optimize performance and scalability
 
 # Output
 
@@ -57,6 +58,8 @@ priority: 3
       "auth_strategy": "JWT",
       "code": {}
     },
+    "reasoning_log": [{"step": "plan", "description": "Decided to use JWT for stateless auth based on architecture."}],
+    "impact_assessment": {"areas_affected": ["frontend login"], "risks": ["token expiration handling needed"]},
     "artifacts": ["route files", "middleware files", "controller files"]
   }
 }

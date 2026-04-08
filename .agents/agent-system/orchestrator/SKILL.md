@@ -34,8 +34,9 @@ description: Coordinate multiple agents and combine outputs into a final solutio
     - Execute rollback in reverse order (LIFO)
 12. Merge all outputs into one coherent result
 13. Ensure consistency and completeness
-14. **Cleanup checkpoint** — Delete checkpoint after successful completion
-15. Send final result to feedback-system
+14. **Archive checkpoint** — Move checkpoint to episodic-memory for record-keeping after successful completion
+15. Pass final execution results to documentation-agent for walkthrough/README generating
+16. Send final result to feedback-system
 
 # Execution Logic
 

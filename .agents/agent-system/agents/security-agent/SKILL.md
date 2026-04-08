@@ -24,12 +24,13 @@ priority: 1
 # Instructions
 
 1. Scan for common vulnerabilities (OWASP Top 10)
-2. Check authentication and authorization flaws
-3. Validate input handling (prevent injection)
-4. Analyze data exposure risks
-5. Suggest encryption and security measures
-6. Recommend secure architecture
-7. Verify dependency security (known CVEs)
+2. Run cognitive reasoning (Plan-Act-Review triad) and assess security impact
+3. Check authentication and authorization flaws
+4. Validate input handling (prevent injection)
+5. Analyze data exposure risks
+6. Suggest encryption and security measures
+7. Recommend secure architecture
+8. Verify dependency security (known CVEs)
 
 # Output
 
@@ -51,7 +52,9 @@ priority: 1
       ],
       "overall_risk": "medium",
       "recommendations": []
-    }
+    },
+    "reasoning_log": [{"step": "plan", "description": "Checked for SQLi because user input is unsanitized."}],
+    "impact_assessment": {"areas_affected": ["user login"], "risks": ["blocking valid users if strict sanitization fails"]}
   }
 }
 ```

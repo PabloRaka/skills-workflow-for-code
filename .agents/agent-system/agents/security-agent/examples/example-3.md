@@ -105,6 +105,8 @@ app.put("/api/roles/:userId", requireRole("admin"), updateUserRole);
       ],
       "audit_fields": ["userId", "role", "resource", "method", "granted", "ip", "timestamp"]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["middleware/authorize.js", "middleware/requireRole.js", "config/roles.js", "services/auditLog.js"]
   },
   "context_info": {

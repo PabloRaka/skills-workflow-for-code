@@ -160,6 +160,8 @@ def ask(chain, question: str) -> dict:
       "pipeline_steps": ["load_pdfs", "chunk_documents", "generate_embeddings", "store_vectors", "create_retrieval_chain"],
       "features": ["source attribution", "diverse retrieval (MMR)", "configurable top_k"]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["rag/document_loader.py", "rag/vector_store.py", "rag/chain.py"]
   },
   "context_info": {

@@ -177,6 +177,8 @@ eventBus.subscribe("order.created", async ({ orderId, userId }) => {
         {"phase": 4, "scope": "Testing and validation", "weeks": 2}
       ]
     },
+    "reasoning_log": [{"step": "plan", "description": "Selected modular monolith over microservices due to team size constraints."}],
+    "impact_assessment": {"areas_affected": ["team workflow", "deployment CI/CD"], "risks": ["initial learning curve for event bus"]},
     "artifacts": ["migration-plan.md", "module-specs/", "dependency-graph.md"]
   },
   "metadata": {

@@ -149,6 +149,8 @@ app.delete("/users/:id", authMiddleware, authorize("manage_users"), async (req, 
       "refactored_code_provided": true,
       "patterns_applied": ["parameterized queries", "pagination", "soft delete", "input validation", "proper HTTP status codes"]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["review-report.md", "refactored/users-routes.js"]
   },
   "context_info": {

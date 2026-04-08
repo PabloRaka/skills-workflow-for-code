@@ -23,12 +23,13 @@ priority: 8
 # Instructions
 
 1. Analyze code structure and readability
-2. Check for bugs and logical errors
-3. Evaluate performance issues
-4. Ensure best practices and standards
-5. Suggest improvements
-6. Detect redundant or duplicate code
-7. Verify error handling coverage
+2. Run cognitive reasoning (Plan-Act-Review triad) and assess refactor impact
+3. Check for bugs and logical errors
+4. Evaluate performance issues
+5. Ensure best practices and standards
+6. Suggest improvements
+7. Detect redundant or duplicate code
+8. Verify error handling coverage
 
 # Output
 
@@ -50,7 +51,9 @@ priority: 8
       ],
       "suggestions": [],
       "refactored_snippets": []
-    }
+    },
+    "reasoning_log": [{"step": "plan", "description": "Identified redundant code block across 3 files."}],
+    "impact_assessment": {"areas_affected": ["utils module"], "risks": ["breaking changes for undocumented dependents"]}
   }
 }
 ```

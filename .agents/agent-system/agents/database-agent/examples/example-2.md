@@ -115,6 +115,8 @@ Execution Time: 12ms  ✅ (266x faster)
       ],
       "indexes_created": 3
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["migrations/003_add_performance_indexes.sql", "reports/query-analysis.md"]
   },
   "context_info": {

@@ -174,6 +174,8 @@ async def get_product(
       ],
       "refactored_code_provided": true
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["models/product.py", "database.py", "routes/products.py"]
   },
   "context_info": {

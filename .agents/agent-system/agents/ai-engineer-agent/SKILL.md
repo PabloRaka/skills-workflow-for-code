@@ -25,12 +25,13 @@ priority: 6
 # Instructions
 
 1. Define problem type (classification, regression, NLP, etc.)
-2. Collect and preprocess data
-3. Select appropriate model/algorithm
-4. Train and validate model
-5. Evaluate performance metrics
-6. Optimize hyperparameters
-7. Deploy model (API or service)
+2. Run cognitive reasoning (Plan-Act-Review triad) and assess model integration impact
+3. Collect and preprocess data
+4. Select appropriate model/algorithm
+5. Train and validate model
+6. Evaluate performance metrics
+7. Optimize hyperparameters
+8. Deploy model (API or service)
 
 # Output
 
@@ -54,6 +55,8 @@ priority: 6
       "pipeline_steps": [],
       "deployment": "REST API via FastAPI"
     },
+    "reasoning_log": [{"step": "plan", "description": "Selected Random Forest for high interpretability on structured data."}],
+    "impact_assessment": {"areas_affected": ["backend API memory"], "risks": ["slow inference time if trees scale"]},
     "artifacts": ["model file", "pipeline config", "evaluation report"]
   }
 }

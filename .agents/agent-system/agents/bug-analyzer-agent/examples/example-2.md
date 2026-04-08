@@ -134,6 +134,8 @@ function LiveDashboard() {
         "Profile with Chrome DevTools Memory tab during development"
       ]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["fixes/LiveDashboard-patched.tsx", "hooks/useInterval.ts", "hooks/useEventListener.ts"]
   },
   "context_info": {

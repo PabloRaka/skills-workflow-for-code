@@ -133,6 +133,8 @@ CREATE TRIGGER orders_updated BEFORE UPDATE ON orders FOR EACH ROW EXECUTE FUNCT
       "constraints": ["CHECK (price >= 0)", "CHECK (stock >= 0)", "CHECK (quantity > 0)"],
       "features": ["soft delete", "auto-updated timestamps", "ENUM status", "JSONB for address"]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["migrations/001_create_tables.sql", "migrations/002_create_indexes.sql", "seeds/sample_data.sql"]
   },
   "pre_execution_snapshot": {

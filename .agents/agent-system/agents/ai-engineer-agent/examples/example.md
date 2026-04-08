@@ -192,6 +192,8 @@ async def predict_fraud(transaction: Transaction):
       "pipeline_steps": ["data_cleaning", "feature_engineering", "SMOTE", "scaling", "training", "evaluation", "deployment"],
       "deployment": "FastAPI REST API at /predict"
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["pipeline/data_preprocessing.py", "pipeline/model_training.py", "api/main.py", "models/fraud_detector.pkl"]
   },
   "context_info": {

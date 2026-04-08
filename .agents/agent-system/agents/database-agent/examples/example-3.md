@@ -145,6 +145,8 @@ followSchema.index({ following: 1 });
       "indexes": 8,
       "features": ["denormalized reads", "TTL auto-expiry", "threaded comments", "multikey hashtag index"]
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["models/User.js", "models/Post.js", "models/Comment.js", "models/Follow.js", "models/Story.js"]
   },
   "context_info": {

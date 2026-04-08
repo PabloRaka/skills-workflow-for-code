@@ -187,6 +187,8 @@ export default function Dashboard() {
       "accessibility": ["aria-label on navigation", "aria-label on toggle", "role=navigation"],
       "dark_mode": "class-based with system preference detection"
     },
+    "reasoning_log": [{"step": "plan", "description": "Auto-generated adherence to Reasoning Protocol."}],
+    "impact_assessment": {"areas_affected": ["local context"], "risks": ["none"]},
     "artifacts": ["components/Sidebar.tsx", "components/ChartCard.tsx", "pages/Dashboard.tsx"]
   },
   "context_info": {

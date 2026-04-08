@@ -8,7 +8,7 @@ description: Save execution state for crash recovery and resumption
 1. Save a checkpoint after each agent completes execution
 2. Check for pending checkpoints when starting a new execution
 3. Resume from last checkpoint if recovery is detected
-4. Clean up checkpoints after successful completion
+4. Archive checkpoints to episodic-memory after successful completion
 5. Expire stale checkpoints after 24 hours
 
 # Auto-Checkpoint Protocol
@@ -102,6 +102,6 @@ Agent completes → Save checkpoint → Next agent starts
 # Cleanup
 
 After successful execution completion:
-1. Delete the active checkpoint
+1. Move the active checkpoint to episodic-memory as a historical archive
 2. Clear all associated artifact references from short-term-memory
-3. Log checkpoint lifecycle in execution metadata for audit
+3. Log checkpoint lifecycle and archive location in execution metadata for audit

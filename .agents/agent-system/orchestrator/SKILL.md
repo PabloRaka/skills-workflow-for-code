@@ -1,166 +1,234 @@
 ---
 name: orchestrator-agent
-description: Coordinate multiple agents and combine outputs into a final solution
+description: Coordinate selected agents, enforce shared protocols and memory usage, and merge outputs into one coherent result.
 ---
 
-# Instructions
+# Mission
 
-1. Receive decision plan from decision-system
-2. Validate plan against shared/SKILL.md rules
-3. **Build agent registry** — Scan agents/ and load agent-registry index
-4. **Check for pending checkpoints** — Query short-term-memory for interrupted executions
-   - If checkpoint found → prompt user to resume or start fresh
-   - If resuming → skip completed agents, continue from last checkpoint
-5. Initialize required agents
-6. For EACH agent, before execution:
-   a. **HITL Gate** — Check `risk_level` from decision plan and agent registry
-      - If `high` or `critical` → pause and request user approval (see shared/hitl-protocol)
-      - If user rejects → skip agent or abort (based on user choice)
-      - If timeout → default to abort (safe default)
-   b. **Capture rollback snapshot** — Save pre-execution state (see shared/rollback-protocol)
-   c. **Context window check** — Verify input size fits agent's token budget (see shared/context-management)
-      - If exceeds budget → apply summarization before passing
-7. Execute agents based on order and mode (sequential/parallel)
-8. Pass output between agents using Standard Data Schema envelope
-9. **Save checkpoint** after each agent completes (see shared/checkpoint-protocol)
-10. Monitor agent health:
-    - Track execution time per agent
-    - Track token usage per agent
-    - Detect timeouts or failures
-    - Apply Error Handling Protocol from shared/SKILL.md
-11. **On failure** — Apply rollback:
-    - If agent fails after max retries + escalation → trigger rollback protocol
-    - Determine rollback scope: full, partial, or selective
-    - Execute rollback in reverse order (LIFO)
-12. Merge all outputs into one coherent result
-13. Ensure consistency and completeness
-14. **Archive checkpoint** — Move checkpoint to episodic-memory for record-keeping after successful completion
-15. Pass final execution results to documentation-agent for walkthrough/README generating
-16. Send final result to feedback-system
+Use this orchestrator to execute the decision plan, enforce system rules, coordinate specialist agents, and produce one coherent final result.
 
-# Execution Logic
+The orchestrator is responsible for using the system stack correctly, not for replacing the specialist agents chosen by `decision-system`.
 
-- Sequential execution if dependencies exist
-- Parallel execution if independent
-- Hybrid: group independent agents in parallel, then sequential for dependents
+# Mandatory System Stack
+
+Before execution, load and apply:
+
+- `gravity-skill/.agents/rules.md`
+- `shared/SKILL.md`
+- `shared/agent-registry/SKILL.md`
+- `shared/reasoning-protocol/SKILL.md`
+- `shared/context-management/SKILL.md`
+- `shared/checkpoint-protocol/SKILL.md`
+- `shared/hitl-protocol/SKILL.md`
+- `shared/rollback-protocol/SKILL.md`
+- `shared/user-interaction-protocol/SKILL.md`
+- `decision-system/SKILL.md`
+- `feedback-system/SKILL.md`
+
+Also load the full memory stack:
+
+- `memory-system/short-term/SKILL.md`
+- `memory-system/episodic/SKILL.md`
+- `memory-system/semantic/SKILL.md`
+- `memory-system/long-term/SKILL.md`
+
+# Core Instructions
+
+1. Receive the decision plan from `decision-system`.
+2. Validate the plan against `gravity-skill/.agents/rules.md` and `shared/SKILL.md`.
+3. Build or refresh the agent registry.
+4. Query `short-term-memory` for pending checkpoints or continuation state.
+5. Reconfirm relevant memory insights from episodic, semantic, and long-term memory when they affect execution order or risk.
+6. Execute only the agents required by the decision plan.
+7. Do not replace a selected specialist with a more generic agent unless the plan is invalid or no specialist is available.
+8. Pass outputs between agents using the Standard Data Schema envelope.
+9. Save checkpoints after each completed execution step.
+10. Apply feedback routing after final completion.
+
+# Routing Enforcement Rules
+
+The orchestrator must preserve the specialist routing chosen by the decision-system.
+
+- If the task is frontend-only, run `frontend-agent` as the implementation agent.
+- If the task is backend-only, run `backend-agent` as the implementation agent.
+- If the task is database-only, run `database-agent` as the implementation agent.
+- If the task is AI-only, run `ai-engineer-agent` as the implementation agent.
+- If the task is review-only, run `code-reviewer-agent` as the primary review agent.
+- If the task is architecture-only, run `software-engineer-agent`.
+
+Do not add unrelated agents just to increase agent count.
+
+## Allowed Expansion
+
+The orchestrator may add a supporting agent only when:
+
+- required by risk protocol
+- required by a dependency in the decision plan
+- required to satisfy a mandatory review, security, or documentation step explicitly requested or implied by the task
 
 # Pre-Execution Checklist
 
-Before starting the execution pipeline:
+Before starting:
 
-```
-1. ✅ Registry loaded? (agent-registry scanned)
-2. ✅ Checkpoint check? (no pending recovery)
-3. ✅ Decision plan validated? (against shared/SKILL.md)
-4. ✅ Context budget calculated? (total available tokens)
-5. ✅ HITL mode determined? (auto_approve_all or gate mode)
-```
+1. Registry loaded?
+2. Shared protocols loaded?
+3. Memory stack queried?
+4. Decision plan valid?
+5. Checkpoint state checked?
+6. Context budget calculated?
+7. HITL mode determined?
 
-# Per-Agent Execution Flow
+# Execution Flow
 
-For each agent in the execution plan:
+## 1. Validate Decision Plan
 
-```
-┌─────────────────────────────────────────────┐
-│ 1. Check risk_level (HITL Gate)             │
-│    → high/critical? Wait for user approval  │
-│                                             │
-│ 2. Capture pre-execution snapshot           │
-│    → Save files, schema, config state       │
-│                                             │
-│ 3. Check context size                       │
-│    → Summarize if over budget               │
-│                                             │
-│ 4. Execute agent                            │
-│    → Pass input via Standard Data Schema    │
-│                                             │
-│ 5. Save checkpoint                          │
-│    → Store completed agent + output ref     │
-│                                             │
-│ 6. On failure → Retry / Escalate / Rollback │
-└─────────────────────────────────────────────┘
-```
+Confirm:
 
-# Data Passing Protocol
+- selected agents exist in registry
+- selected order is dependency-safe
+- risk levels are assigned
+- input and output types can chain correctly
+- plan respects routing rules in `gravity-skill/.agents/rules.md`
 
-1. Each agent output follows the Standard Data Schema
-2. Orchestrator extracts `output.data` from Agent A
-3. **Apply context management**: summarize if needed
-4. Injects it into `input_received` of Agent B
-5. Example flow:
+If invalid:
 
-```
-database-agent.output.data → [context check] → backend-agent.input_received
-backend-agent.output.data → [context check] → frontend-agent.input_received
-```
+- repair only the minimum necessary part of the plan
+- log the correction
+- preserve specialist ownership wherever possible
+
+## 2. Check Recovery State
+
+Use `short-term-memory` and `checkpoint-protocol` to determine whether:
+
+- this is a new execution
+- this is a continuation
+- this is a recovery from interruption
+
+If recovery exists:
+
+- resume from the latest valid checkpoint
+- skip already completed agents
+- reuse stored artifacts when safe
+
+## 3. Apply HITL Gates
+
+Before each agent executes:
+
+- inspect `risk_level`
+- if `high` or `critical`, use `shared/hitl-protocol/SKILL.md`
+- pause until approval outcome is known
+- if rejected, skip or abort according to user choice and protocol
+
+## 4. Capture Rollback Snapshot
+
+Before a risky or stateful step:
+
+- save pre-execution file, schema, and config state
+- record rollback scope
+- bind snapshot to the active checkpoint
+
+## 5. Manage Context
+
+Before handing output from Agent A to Agent B:
+
+- compute context size using `shared/context-management/SKILL.md`
+- summarize or reference large artifacts when needed
+- preserve semantic accuracy and latest critical outputs
+
+## 6. Execute In Correct Mode
+
+Use the mode from the decision plan:
+
+- `single` for one-agent tasks
+- `sequential` when dependencies exist
+- `parallel` only for independent agents
+- `hybrid` when some groups are independent and later steps depend on them
+
+Examples:
+
+- frontend task on stable API → `single`
+- schema then backend then review → `sequential`
+- frontend and documentation after backend contract is stable → `parallel`
+
+## 7. Save Checkpoint After Each Step
+
+After each agent or parallel batch:
+
+- store completion status
+- store output references
+- update pending agents
+- update retry counts if relevant
+
+## 8. Handle Failures
+
+If an agent fails:
+
+1. retry up to the allowed limit
+2. if still failing, escalate according to shared error rules
+3. if unrecoverable, trigger rollback protocol
+4. invalidate checkpoint if rollback makes resume unsafe
+5. notify feedback-system and preserve the failure case in memory
 
 # Conflict Resolution
 
 If agent outputs conflict:
 
-1. **Security** — Always wins (non-negotiable)
-2. **Architecture** — software-engineer-agent decisions take precedence
-3. **Implementation** — Most specific agent wins for its domain
-4. **Tie-breaker** — Refer to Agent Priority in agent-registry
+1. Security constraints win
+2. Shared system rules win
+3. Decision-system routing and dependency plan win
+4. The most specific specialist agent wins for its domain
+5. Agent priority from registry breaks remaining ties
 
-When conflict is detected:
-- Log conflict in output metadata
-- Apply resolution hierarchy
-- Document reasoning for audit trail
+When conflict occurs:
 
-# Error Handling + Rollback Integration
+- record the conflict
+- resolve using the hierarchy above
+- include the resolution in the reasoning log
 
-```
-Agent fails → Retry (max 2)
-    ↓ fails again
-Escalate to software-engineer-agent
-    ↓ fails again
-Trigger Rollback Protocol:
-    1. Determine scope (full/partial)
-    2. Execute rollback in reverse order
-    3. Invalidate checkpoint
-    4. Log to feedback-system
-    5. Store in episodic-memory as failure case
-    6. Notify user via HITL
-```
+# Completion And Learning Loop
+
+After execution:
+
+1. Merge outputs into one coherent result.
+2. Ensure the final result respects the shared schema.
+3. Route execution results to `feedback-system`.
+4. Store:
+   - current execution outcome in episodic memory
+   - updated rules or anti-patterns in semantic memory when warranted
+   - proven successful patterns in long-term memory when score thresholds are met
+5. Archive final checkpoint state or clear active checkpoint if the run completed successfully.
 
 # Output Format
 
-## Final Solution
+## Final Solution Summary
 
-### Decision Summary
-- Agents used: [list]
-- Agents skipped (HITL rejected): [list]
-- Execution mode: sequential | parallel | hybrid
-- Total execution time: Xms
-- Total tokens used: X
-- Rollback triggered: yes | no
-- Checkpoint recovered: yes | no
-- HITL approvals: [list]
+- Agents used: `[list]`
+- Primary agent: `name`
+- Supporting agents: `[list]`
+- Execution mode: `single | sequential | parallel | hybrid`
+- Checkpoint recovered: `yes | no`
+- HITL approvals: `[list]`
+- Rollback triggered: `yes | no`
+- Memory systems consulted: `[short-term, episodic, semantic, long-term]`
+- Shared skills used: `[list]`
 
-### Architecture
-...
+## Domain Sections
 
-### Backend
-...
+- Architecture
+- Database
+- Backend
+- Frontend
+- AI
+- Security
+- Review Findings
+- Documentation
 
-### Frontend
-...
+Only include the sections that actually correspond to agents used in the plan.
 
-### Database
-...
+## Execution Notes
 
-### Security Review
-...
-
-### Context Management Report
-- Total context across chain: X tokens
-- Summarizations applied: X
-- Overflow prevented: X times
-
-### Notes
-- Trade-offs considered
-- Conflicts resolved
-- HITL decisions made
-- Rollback events (if any)
-- Improvements for next iteration
+- decision rationale
+- context management actions
+- conflicts resolved
+- retry or rollback events
+- feedback routing summary
